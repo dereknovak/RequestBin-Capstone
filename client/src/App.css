@@ -1,2 +1,43 @@
 @import url("Min.css"); /* DO NOT DELETE */
 
+#root {
+  color: white;
+  background-color: rgb(43, 41, 35);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10%;
+  border: 1px solid rgb(29, 29, 29);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20%;
+}
+
+ol {
+  margin-top: 10px;
+}
+
+dl {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(83, 83, 83);
+  border-style: solid none none;
+}
+
+.left-request-info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10%;
+}
+
+.right-request-info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
