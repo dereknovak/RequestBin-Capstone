@@ -9,7 +9,7 @@ let requests = [
       "Accept-Encoding: gzip, deflate, br, zstd" + 
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
       "Connection: close",
-    query_params: "Text=First+Dummy+Request",
+    queryParams: "Text=First+Dummy+Request",
     body: null
   },
   {
@@ -20,7 +20,7 @@ let requests = [
       "Accept-Encoding: gzip, deflate, br, zstd" + 
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
       "Connection: close",
-    query_params: "Text=Second+Dummy+Request",
+    queryParams: "Text=Second+Dummy+Request",
     body: null
   },
   {
@@ -31,7 +31,7 @@ let requests = [
       "Accept-Encoding: gzip, deflate, br, zstd" + 
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
       "Connection: close",
-    query_params: null,
+    queryParams: null,
     body: `{"zen":"Third Dummy Request","hook_id":0123456789}`
   },
 ]
