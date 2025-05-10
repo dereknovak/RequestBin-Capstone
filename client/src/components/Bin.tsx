@@ -20,7 +20,7 @@ const Bin = () => {
   return (
     <>
       <header>
-        <a href='#' onClick={redirectHome}><h2>RequestBin</h2></a>
+        <h2 onClick={redirectHome}>RequestBin</h2>
         <Options setRequests={setRequests} />
       </header>
 
@@ -56,13 +56,28 @@ const Options = ({ setRequests }) => {
 
   return (
     <div id='options'>
-      <button type='button' onClick={handleBurn}>Burn</button>
-      <button type='button' onClick={handleDelete}>Delete</button>
+      <button id='burn-button' type='button' onClick={handleBurn}>Burn</button>
+      <button id='delete-button' type='button' onClick={handleDelete}>Delete</button>
     </div>
   );
 };
 
 const Request = ({ data }) => {
+  const [visibility, setVisibility] = useState({
+    headers: 'hidden',
+    body: 'hidden',
+    queryParams: 'hidden'
+  });
+
+  const toggleVisibility = (prop) => {
+    const newStatus = visibility[prop] === 'visible' ? 'hidden' : 'visible';
+
+    setVisibility({
+      ...visibility,
+      [prop]: newStatus,
+    });
+  };
+
   return (
     <li>
       <dl>
@@ -72,8 +87,18 @@ const Request = ({ data }) => {
         </div>
         <div className='right-request-info'>
           <Path data={data.path} />
-          <Headers data={data.headers} />
-          <QueryParams data={data.queryParams} />
+          <Headers
+            data={data.headers}
+            visibility={visibility}
+            toggleVisibility={toggleVisibility} />
+          <Body
+            data={data.body}
+            visibility={visibility}
+            toggleVisibility={toggleVisibility} />
+          <QueryParams
+            data={data.queryParams}
+            visibility={visibility}
+            toggleVisibility={toggleVisibility} />
         </div>
       </dl>
     </li>
@@ -82,7 +107,7 @@ const Request = ({ data }) => {
 
 const Method = ({ data }) => {
   return (
-    <dt>{data}</dt>
+    <dt className='method'>[{data}]</dt>
   );
 };
 
@@ -94,28 +119,45 @@ const TimeStamp = ({ data }) => {
 
 const Path = ({ data }) => {
   return (
-    <dt>{data}</dt>
+    <dt className='path'>{data}</dt>
   )
 };
 
-const Headers = ({ data }) => {
+const Headers = ({ data, visibility, toggleVisibility }) => {
   return (
     <dt>
-      <button type='button'>Headers</button>
-      <pre>
+      <button type='button' onClick={() => toggleVisibility('headers')}>Headers</button>
+      <pre className={visibility.headers}>
         {data}
       </pre>
     </dt>
   );
 };
 
-const QueryParams = ({ data }) => {
-  return (
-    <dt>
-      <button type='button'>Query Parameters</button>
-      <pre>{data || 'NO PARAMS'}</pre>
-    </dt>
-  );
+const Body = ({ data, visibility, toggleVisibility }) => {
+  if (data) {
+    return (
+      <dt>
+        <button type='button' onClick={() => toggleVisibility('body')}>Body</button>
+        <pre className={visibility.body}>
+          {data}
+        </pre>
+      </dt>
+    );
+  }
+};
+
+const QueryParams = ({ data, visibility, toggleVisibility }) => {
+  if (data) {
+    return (
+      <dt>
+        <button type='button' onClick={() => toggleVisibility('queryParams')}>Query Parameters</button>
+        <pre className={visibility.queryParams}>
+          {data || 'NO PARAMS'}
+        </pre>
+      </dt>
+    );
+  }
 };
 
 export default Bin;
