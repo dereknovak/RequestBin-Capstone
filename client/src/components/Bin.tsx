@@ -22,11 +22,11 @@ const Bin = () => {
         <p>Requests are collected at Bin_URL</p>
         <p>Requests: {requests.length}</p>
 
-        <ul>
+        <ol>
           {requests.map(request => 
             <Request key={request.timestamp} data={request} /> // Change key to something other than timestamp
           )}
-        </ul>
+        </ol>
       </main>
     </>
   )
@@ -44,16 +44,17 @@ const Options = () => {
 const Request = ({ data }) => {
   return (
     <li>
-      <ul>
-        <div>
-          <li>{data.method}</li>
-          <li>{data.timestamp}</li>
+      <dl>
+        <div className='left-request-info'>
+          <dt>{data.method}</dt>
+          <dt>{data.timestamp}</dt>
         </div>
-
-        <li>{data.path}</li>
-        <li>{data.header}</li>
-        <li>{data.query_params || 'NO PARAMS'}</li>
-      </ul>
+        <div className='right-request-info'>
+          <dt>{data.path}</dt>
+          <dt>{data.header}</dt>
+          <dt>{data.query_params || 'NO PARAMS'}</dt>
+        </div>
+      </dl>
     </li>
   );
 };
