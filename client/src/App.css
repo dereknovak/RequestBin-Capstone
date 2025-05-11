@@ -41,3 +41,38 @@ dl {
   flex-direction: column;
   padding: 20px 0;
 }
+
+.home-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.new_bin_form {
+  display: flex;
+  padding: 25px;
+  margin: 25px;
+  justify-content: center;
+  border: 1px solid rgb(255, 255, 255);
+  border-style: solid;
+}
+
+.bin_list {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  padding: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  border-style: solid;
+}
+
+.bin_list_items {
+  margin: 5px 0px 0px 10px
+}
+
+.bin_list_link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.bin_list_link:hover { text-decoration: underline; }
