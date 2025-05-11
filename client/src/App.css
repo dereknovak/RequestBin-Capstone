@@ -2,7 +2,7 @@
 
 #root {
   color: white;
-  background-color: rgb(43, 41, 35);
+  background-color: rgb(42, 42, 40);
 }
 
 header {
@@ -16,11 +16,18 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 20%;
+  padding: 20px 0;
 }
 
 ol {
+  width: 100%;
   margin-top: 10px;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 dl {
@@ -30,14 +37,65 @@ dl {
   border-style: solid none none;
 }
 
+dt {
+  margin-bottom: 3px;
+  width: 85%;
+}
+
+pre {
+  display: none;
+}
+
 .left-request-info {
   display: flex;
   flex-direction: column;
   padding: 20px 10%;
+  justify-content: center;
 }
 
 .right-request-info {
   display: flex;
   flex-direction: column;
   padding: 20px 0;
+  width: 100%;
 }
+
+.right-request-info button {
+  text-align: left;
+  padding: 8px;
+  width: 100%;
+}
+
+.method {
+  color: rgb(64, 200, 125);
+}
+
+.path {
+  box-sizing: border-box;
+  padding: 8px;
+  background-color: rgb(64, 200, 125);
+  border-radius: 3px;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+#burn-button {
+  margin: 0 1px;
+  background-color: rgb(255, 186, 58);
+  border: none;
+  border-radius: 3px;
+}
+
+#delete-button {
+  margin: 0 1px;
+  background-color: rgb(255, 60, 60);
+  border: none;
+  border-radius: 3px;
+}
+
