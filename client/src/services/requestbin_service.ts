@@ -50,9 +50,10 @@ const getAllRequests = async () => {
   return requests;
 }
 
-const createBin = async () => {
-  let counter = 1;
-  bins.push(`testbin${counter + 1}`);
+const createBin = async () => {  
+  bins.push(`testbin${bins.length + 1}`);
+  const newBin = await bins[bins.length - 1];
+  return newBin;
 }
 
 const deleteRequest = async (id) => {
