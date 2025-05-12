@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import service from '../services/requestbin_service';
 import { useNavigate, useParams } from 'react-router-dom';
+import service from '../services/requestbin_service';
 
 import Options from './Options';
 import Request from './Request';
