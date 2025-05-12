@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import requestbin_service from "../services/requestbin_service";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [binList, setBinList] = useState([]);
@@ -62,7 +63,7 @@ const Bins = ({ binList }) => {
           {binList.map((bin_url, idx) => {
             return (
               <li key={idx}>
-                <a href={`/bin/${bin_url}`} className='bin_list_link'>{bin_url}</a>
+                <Link to={`/bin/${bin_url}`} className='bin_list_link'>{bin_url}</Link>
               </li>
             )
           })}

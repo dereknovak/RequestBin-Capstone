@@ -8,8 +8,9 @@ import Request from './Request';
 const Bin = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
-  // const url = useParams().url
+  
   const url = 'yqgulne';
+  const params = useParams();
 
   const redirectHome = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const Bin = () => {
   };
 
   useEffect(() => {
-    service.getAllRequests().then(data => {
+    service.getAllRequests(params.bin_url).then(data => {
       setRequests(data);
     });
   }, []);
@@ -30,10 +31,10 @@ const Bin = () => {
       </header>
 
       <main>
-        <h1>Bin: {url}</h1>
+        <h1>Bin: {params.bin_url}</h1>
         <p>
-          Requests are collected at <kbd>{`https://requestbincap.stone/${url}`}</kbd>
-          <CopyURLSpan url={url} />
+          Requests are collected at <kbd>{`https://requestbincap.stone/${params.bin_url}`}</kbd>
+          <CopyURLSpan url={params.bin_url} />
         </p>
         <p>Requests: {requests.length}</p>
 
