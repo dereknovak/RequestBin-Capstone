@@ -12,7 +12,7 @@ class MongoService:
     def find_all(self, collection_name):
         return list(self.get_collection(collection_name).find({}, {'_id': 0}))
     
-    def insert_one(self, collection_name, document):
+    def add_request(self, collection_name, document):
         return self.get_collection(collection_name).insert_one(document)
     
     def delete_all(self, collection_name):
