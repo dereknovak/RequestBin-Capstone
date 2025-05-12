@@ -4,7 +4,7 @@ let requests = [
   {
     method: 'GET',
     timestamp: "06:31:14 PM 5/9/2025",
-    path: "/yqgulne?Text=Hello+Momma",
+    path: "/yqgulne?Text=First+Dummy+Request",
     headers: "Accept: text/html" + 
       "Accept-Encoding: gzip, deflate, br, zstd" + 
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
@@ -15,13 +15,13 @@ let requests = [
   {
     method: 'POST',
     timestamp: "07:40:14 PM 5/9/2025",
-    path: "/yqgulne?Text=Hello+Momma",
+    path: "/yqgulne?Text=Second+Dummy+Request+1&TextTwo=Second+Dummy+Request+2",
     headers: "Accept: text/html" + 
       "Accept-Encoding: gzip, deflate, br, zstd" + 
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
       "Connection: close",
-    queryParams: "Text=Second+Dummy+Request",
-    body: null
+    queryParams: "Text=Second+Dummy+Request+1&TextTwo=Second+Dummy+Request+2",
+    body: `{"zen":"Second Dummy Request","hook_id":0123456789}`
   },
   {
     method: 'GET',
@@ -32,7 +32,7 @@ let requests = [
       "Accept-Language: en-US,en;q=0.9,la;q=0.8" + 
       "Connection: close",
     queryParams: null,
-    body: `{"zen":"Third Dummy Request","hook_id":0123456789}`
+    body: null
   },
 ]
 
