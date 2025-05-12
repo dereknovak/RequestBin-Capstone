@@ -134,3 +134,15 @@ pre {
   border: none;
   border-radius: 3px;
 }
+
+#clipboard {
+  display: inline-block;
+  width: 2%;
+  filter: invert();
+}
+
+#checkbox {
+  display: inline-block;
+  width: 4%;
+  filter: invert();
+}
