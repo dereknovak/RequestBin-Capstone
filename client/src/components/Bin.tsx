@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import service from '../services/requestbin_service';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Bin = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
+  const params = useParams();
 
   const redirectHome = (e) => {
     e.preventDefault();
@@ -12,7 +13,7 @@ const Bin = () => {
   };
 
   useEffect(() => {
-    service.getAllRequests().then(data => {
+    service.getAllRequests(params.bin_url).then(data => {
       setRequests(data);
     });
   }, []);
@@ -25,8 +26,8 @@ const Bin = () => {
       </header>
 
       <main>
-        <h1>Bin: Path</h1>
-        <p>Requests are collected at Bin_URL</p>
+        <h1>Bin: {params.bin_url}</h1>
+        <p>Requests are collected at https://requestbincap.stone/{params.bin_url}</p>
         <p>Requests: {requests.length}</p>
 
         <ol>
