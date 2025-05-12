@@ -1,7 +1,12 @@
 from flask import Flask, jsonify
 from services.mongo_service import MongoService
+from services.psql_service import PsqlServices
 
 app = Flask(__name__)
+
+@app.route("/psql/all")
+def all2():
+    return PsqlServices.get_bins()
 
 @app.route("/mongo/all")
 def all():
