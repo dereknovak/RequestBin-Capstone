@@ -46,8 +46,12 @@ const getAllBins = async () => {
   return bins;
 }
 
-const getAllRequests = async () => {
-  return requests;
+const getAllRequests = async (bin_url) => {
+  if (bin_url === 'yqgulne') {
+    return requests;
+  } else {
+    return [];  
+  }
 }
 
 const createBin = async () => {  
@@ -60,12 +64,12 @@ const deleteRequest = async (id) => {
   requests.splice(id, 1);
 }
 
-const deleteAllRequests = async (url) => {
+const deleteAllRequests = async (bin_url) => {
   requests = [];
 }
 
-const deleteBin = async(url) => {
-  bins = bins.filter((u) => u !== url);
+const deleteBin = async(bin_url) => {
+  bins = bins.filter((u) => u !== bin_url);
 }
 
 export default {

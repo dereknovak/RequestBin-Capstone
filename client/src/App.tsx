@@ -12,7 +12,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/home' element={<Home />} />
-        <Route path='/bin' element={<Bin />} />
+        <Route path='/bin/:bin_url' element={<Bin />} />
       </Routes>
     </Router>
   );
