@@ -32,10 +32,12 @@ const Home = () => {
         <h2 onClick={redirectHome}>RequestBin</h2>
       </header>
 
-      <div id='home-flex' className='home-flex'>
-        <NewBinForm onFormSubmission = {handleFormSubmission}/>
-        <Bins binList={binList} />
-      </div>
+      <main>
+        <div id='home-flex' className='home-flex'>
+          <NewBinForm onFormSubmission = {handleFormSubmission}/>
+          <Bins binList={binList} />
+        </div>
+      </main>
     </>  
   )
 }  
