@@ -5,6 +5,9 @@ import service from '../services/requestbin_service';
 import Options from './Options';
 import Request from './Request';
 
+import clipboardIcon from '../assets/clipboard.svg';
+import checkboxIcon from '../assets/checkbox.svg';
+
 const Bin = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
@@ -60,20 +63,14 @@ const CopyURLSpan = ({ url }) => {
     }
   };
 
-  if (isCopied) {
-    return (
-      <span onClick={copyToClipboard} title='URL is copied to your clipboard'>
-        <img id='checkbox' src='src/assets/checkbox.svg' />
-      </span>
-    );
-  } else {
-    return (
-      <span onClick={copyToClipboard} title='URL copied'>
-        <img id='clipboard' src='src/assets/clipboard.svg' />
-      </span>
-    );
-  }
-}
+  const iconSrc = isCopied ? checkboxIcon : clipboardIcon;
+  const altText = isCopied ? 'Copied' : 'Copy';
 
+  return (
+    <span onClick={copyToClipboard} title={altText}>
+      <img id={isCopied ? 'checkbox' : 'clipboard'} src={iconSrc} alt={altText} />
+    </span>
+  );
+};
 
 export default Bin;

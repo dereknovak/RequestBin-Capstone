@@ -91,7 +91,7 @@ const QueryParams = ({ data, visibility, toggleVisibility }) => {
       <dt>
         <button type='button' onClick={() => toggleVisibility('queryParams')}>Query Parameters</button>
         <pre className={visibility.queryParams}>
-          {data || 'NO PARAMS'}
+          {data}
         </pre>
       </dt>
     );
