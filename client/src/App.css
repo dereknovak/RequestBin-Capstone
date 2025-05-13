@@ -6,17 +6,26 @@
 }
 
 header {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 5px 10%;
   border: 1px solid rgb(29, 29, 29);
+  z-index: auto;
+  background-color: rgb(42, 42, 40);
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 40px 0;
+}
+
+h2:hover {
+  cursor: pointer;
 }
 
 ol {
@@ -44,6 +53,22 @@ dt {
 
 pre {
   display: none;
+}
+
+kbd {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #2d2d2d;
+  color: #f8f8f2;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: .85em;
+  border: 1px solid #444;
+  white-space: nowrap;
+}
+
+span {
+  display: inline-flex;
+  vertical-align: middle;
 }
 
 .left-request-info {
@@ -133,4 +158,14 @@ pre {
   background-color: rgb(255, 60, 60);
   border: none;
   border-radius: 3px;
+}
+
+#clipboard, #checkbox {
+  display: inline-block;
+  width: 20px;
+  filter: invert();
+}
+
+#clipboard:hover, #checkbox:hover {
+  cursor: pointer;
 }

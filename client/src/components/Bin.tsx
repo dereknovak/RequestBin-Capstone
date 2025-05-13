@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react';
-import service from '../services/requestbin_service';
 import { useNavigate, useParams } from 'react-router-dom';
+import service from '../services/requestbin_service';
+
+import Options from './Options';
+import Request from './Request';
+
+import clipboardIcon from '../assets/clipboard.svg';
+import checkboxIcon from '../assets/checkbox.svg';
 
 const Bin = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
+  
   const params = useParams();
 
   const redirectHome = (e) => {
@@ -27,7 +34,10 @@ const Bin = () => {
 
       <main>
         <h1>Bin: {params.bin_url}</h1>
-        <p>Requests are collected at https://requestbincap.stone/{params.bin_url}</p>
+        <p>
+          Requests are collected at <kbd>{`https://requestbincap.stone/${params.bin_url}`}</kbd>
+          <CopyURLSpan url={params.bin_url} />
+        </p>
         <p>Requests: {requests.length}</p>
 
         <ol>
@@ -40,125 +50,27 @@ const Bin = () => {
   )
 };
 
-const Options = ({ setRequests }) => {
-  const navigate = useNavigate();
+const CopyURLSpan = ({ url }) => {
+  const [isCopied, setIsCopied] = useState(false);
 
-  const handleBurn = () => {
-    service.deleteAllRequests('FAKE_URL');
-    setRequests([]);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(`https://requestbincap.stone/${url}`);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
   };
 
-  const handleDelete = () => {
-    service.deleteBin('FAKE_URL');
-    setRequests([]);
-
-    navigate('/home');
-  };
+  const iconSrc = isCopied ? checkboxIcon : clipboardIcon;
+  const altText = isCopied ? 'Copied' : 'Copy';
 
   return (
-    <div id='options'>
-      <button id='burn-button' type='button' onClick={handleBurn}>Burn</button>
-      <button id='delete-button' type='button' onClick={handleDelete}>Delete</button>
-    </div>
+    <span onClick={copyToClipboard} title={altText}>
+      <img id={isCopied ? 'checkbox' : 'clipboard'} src={iconSrc} alt={altText} />
+    </span>
   );
-};
-
-const Request = ({ data }) => {
-  const [visibility, setVisibility] = useState({
-    headers: 'hidden',
-    body: 'hidden',
-    queryParams: 'hidden'
-  });
-
-  const toggleVisibility = (prop) => {
-    const newStatus = visibility[prop] === 'visible' ? 'hidden' : 'visible';
-
-    setVisibility({
-      ...visibility,
-      [prop]: newStatus,
-    });
-  };
-
-  return (
-    <li>
-      <dl>
-        <div className='left-request-info'>
-          <Method data={data.method} />
-          <TimeStamp data={data.timestamp} />
-        </div>
-        <div className='right-request-info'>
-          <Path data={data.path} />
-          <Headers
-            data={data.headers}
-            visibility={visibility}
-            toggleVisibility={toggleVisibility} />
-          <Body
-            data={data.body}
-            visibility={visibility}
-            toggleVisibility={toggleVisibility} />
-          <QueryParams
-            data={data.queryParams}
-            visibility={visibility}
-            toggleVisibility={toggleVisibility} />
-        </div>
-      </dl>
-    </li>
-  );
-};
-
-const Method = ({ data }) => {
-  return (
-    <dt className='method'>[{data}]</dt>
-  );
-};
-
-const TimeStamp = ({ data }) => {
-  return (
-    <dt>{data}</dt>
-  );
-};
-
-const Path = ({ data }) => {
-  return (
-    <dt className='path'>{data}</dt>
-  )
-};
-
-const Headers = ({ data, visibility, toggleVisibility }) => {
-  return (
-    <dt>
-      <button type='button' onClick={() => toggleVisibility('headers')}>Headers</button>
-      <pre className={visibility.headers}>
-        {data}
-      </pre>
-    </dt>
-  );
-};
-
-const Body = ({ data, visibility, toggleVisibility }) => {
-  if (data) {
-    return (
-      <dt>
-        <button type='button' onClick={() => toggleVisibility('body')}>Body</button>
-        <pre className={visibility.body}>
-          {data}
-        </pre>
-      </dt>
-    );
-  }
-};
-
-const QueryParams = ({ data, visibility, toggleVisibility }) => {
-  if (data) {
-    return (
-      <dt>
-        <button type='button' onClick={() => toggleVisibility('queryParams')}>Query Parameters</button>
-        <pre className={visibility.queryParams}>
-          {data || 'NO PARAMS'}
-        </pre>
-      </dt>
-    );
-  }
 };
 
 export default Bin;
