@@ -9,7 +9,6 @@ const Bin = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   
-  const url = 'yqgulne';
   const params = useParams();
 
   const redirectHome = (e) => {
