@@ -22,10 +22,27 @@ main {
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 50%;
 }
 
 h2:hover {
   cursor: pointer;
+}
+
+em {
+  color: red;
+}
+
+p.request-count {
+  width: 50%;
+  display: inline-block;
+  text-align: right;
 }
 
 ol {
@@ -52,7 +69,14 @@ dt {
 }
 
 pre {
-  display: none;
+  max-height: 300px;
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #414141;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 kbd {
@@ -100,6 +124,7 @@ span {
   padding: 8px;
   background-color: rgb(64, 200, 125);
   border-radius: 3px;
+  word-break: break-word;
 }
 
 .visible {
@@ -168,4 +193,8 @@ span {
 
 #clipboard:hover, #checkbox:hover {
   cursor: pointer;
+}
+
+#bin-data {
+  display: block;
 }

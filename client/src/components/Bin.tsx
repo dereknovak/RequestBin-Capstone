@@ -8,7 +8,8 @@ import Request from './Request';
 import clipboardIcon from '../assets/clipboard.svg';
 import checkboxIcon from '../assets/checkbox.svg';
 
-const Bin = () => {
+const Bin = ({ binList, setBinList }) => {
+  const [bin, setBin] = useState('');
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   
@@ -23,22 +24,32 @@ const Bin = () => {
     service.getAllRequests(params.bin_url).then(data => {
       setRequests(data);
     });
+
+    setBin(params.bin_url);
   }, []);
 
   return (
     <>
       <header>
-        <h2 onClick={redirectHome}>RequestBin</h2>
-        <Options setRequests={setRequests} />
+        <h2 onClick={redirectHome}>RequestBin<em>Capstone</em></h2>
+        <Options
+          setRequests={setRequests}
+          bin={bin}
+          setBin={setBin}
+          binList={binList}
+          setBinList={setBinList}
+        />
       </header>
 
       <main>
-        <h1>Bin: {params.bin_url}</h1>
-        <p>
-          Requests are collected at <kbd>{`https://requestbincap.stone/${params.bin_url}`}</kbd>
-          <CopyURLSpan url={params.bin_url} />
-        </p>
-        <p>Requests: {requests.length}</p>
+        <div id='bin-data'>
+          <h1>Bin: {params.bin_url}</h1>
+          <p className='request-count'>Requests: {requests.length}</p>
+          <p>
+            Requests are collected at <kbd>{`https://requestbincap.stone/${params.bin_url}`}</kbd>
+            <CopyURLSpan url={params.bin_url} />
+          </p>
+        </div>
 
         <ol>
           {requests.map(request => 
