@@ -26,3 +26,6 @@ class DatabaseService:
         for request in requests_list:
             del request["_id"]
         return requests_list
+
+    def write_req(self, payload):
+        return 
