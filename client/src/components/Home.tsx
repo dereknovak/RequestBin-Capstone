@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import requestbin_service from "../services/requestbin_service";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [binList, setBinList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {      
     (async () => {
@@ -17,13 +19,26 @@ const Home = () => {
     const updatedList = binList.slice();
     updatedList.push(newBin);
     setBinList(updatedList);
-  }  
+  };
+
+  const redirectHome = (e) => {
+    e.preventDefault();
+    navigate('/home');
+  };
   
   return (
-    <div id='home-flex' className='home-flex'>
-      <NewBinForm onFormSubmission = {handleFormSubmission}/>
-      <Bins binList={binList} />
-    </div>    
+    <>
+      <header>
+        <h2 onClick={redirectHome}>RequestBin</h2>
+      </header>
+
+      <main>
+        <div id='home-flex' className='home-flex'>
+          <NewBinForm onFormSubmission = {handleFormSubmission}/>
+          <Bins binList={binList} />
+        </div>
+      </main>
+    </>  
   )
 }  
 
@@ -62,7 +77,7 @@ const Bins = ({ binList }) => {
           {binList.map((bin_url, idx) => {
             return (
               <li key={idx}>
-                <a href={`/bin/${bin_url}`} className='bin_list_link'>{bin_url}</a>
+                <Link to={`/bin/${bin_url}`} className='bin_list_link'>{bin_url}</Link>
               </li>
             )
           })}

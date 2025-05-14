@@ -1,7 +1,7 @@
 import './App.css'
 import {
   BrowserRouter as Router,
-  Routes, Route
+  Routes, Route, Navigate
 } from 'react-router-dom';
 
 import Bin from './components/Bin';
@@ -11,8 +11,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<Navigate to='/home' replace />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/bin' element={<Bin />} />
+        <Route path='/bin/:bin_url' element={<Bin />} />
+        <Route path='*' element={<Navigate to='/home' replace />} />
       </Routes>
     </Router>
   );

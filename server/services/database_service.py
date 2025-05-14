@@ -26,3 +26,25 @@ class DatabaseService:
         for request in requests_list:
             del request["_id"]
         return requests_list
+
+    def get_paths(self):
+        query = """
+        SELECT path FROM bin;
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+                result = cursor.fetchall()
+
+        return result
+
+    def write_req(self, payload):
+        """
+        Plan for method:
+        * Add payload to mongoDB
+        * Get respective id of payload from mongoDB
+        * Use path attribute from payload to get id from bin
+        * Add entry in request table with bin_id and mongodb_doc_id
+        """
+        return 
