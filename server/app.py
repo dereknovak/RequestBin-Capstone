@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from src.utilities.url_generator import get_new_url
 from services.database_service import DatabaseService
 
 app = Flask(__name__)
