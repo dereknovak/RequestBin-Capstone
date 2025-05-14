@@ -19,7 +19,7 @@ To verify the status of the `mongod` local server:
 ```
 sudo systemctl status mongod
 ```
-Once it's active you are good to go.
+Once it's active and running on port 27017 you are good to go.
 
 ---
 
