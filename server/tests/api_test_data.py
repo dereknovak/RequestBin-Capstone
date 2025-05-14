@@ -51,4 +51,5 @@ bins = [
   "f8ld6brsdf"
 ]
 
-# add in test function to return new url
+def mock_delete_bin(bin_url):
+  bins.remove(bin_url)

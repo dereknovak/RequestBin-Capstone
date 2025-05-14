@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, Blueprint
 from services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url
-from tests.api_test_data import requests, bins, delete_one # Remove once db service works 
+from tests.api_test_data import requests, bins, mock_delete_bin # Remove once db service works 
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -36,22 +36,22 @@ def get_bin_requests(bin_url):
     # requests = database.get_bin_requests(bin_url) - requests array & request objects within - finish updating mock of requests
     return jsonify(requests)
 
-@api.delete("/bin/<string:url>")
+@api.delete("/bins/<string:bin_url>")
 def delete_bin(bin_url):
     # database.is_existing_url
       # if so
       # database.delete_bin(bin_url)
     # else
       # send error message to frontend - bin doesnt exist
-    return 'test'
+    mock_delete_bin(bin_url)
+    return '', 200
 
-@api.delete("/bin/<string:url>/requests")
-def burn_bin_requests():
+# @api.delete("/bins/<string:url>/requests")
+# def burn_bin_requests():
     # if no requests return
     # database.delete_bin_requests(bin_url)
-    return 'test'
+  
 
 # @api.delete("bin/<string:url>/requests/<string:request_id>")
 # def delete_request(request_id):
 #     # database.delete_one_request(request_id)
-#     return 'test'

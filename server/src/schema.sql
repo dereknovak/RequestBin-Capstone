@@ -1,3 +1,19 @@
+DROP DATABASE request_bin
+CREATE DATABASE request_bin;
+
+\c request_bin
+
+CREATE TABLE Bin (
+  id SERIAL PRIMARY KEY,
+  path VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE Request (
+  id SERIAL PRIMARY KEY,
+  bin_id INTEGER REFERENCES Bin(id) NOT NULL,
+  mongodb_doc_id VARCHAR(24) NOT NULL
+);
+
 INSERT INTO Bin (path) VALUES ('0p1s21h');
 INSERT INTO Bin (path) VALUES ('yqgulne');
 INSERT INTO Bin (path) VALUES ('f8ld6brsdf');

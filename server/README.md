@@ -25,6 +25,5 @@ Once it's active and running on port 27017 you are good to go.
 
 Make sure PostgreSQL (version 16+) in installed and running locally. Run the following commands in this order:
 ```
-createdb request_bin
-psql -d request_bin < request_bin.sql
+run psql < reset_sql_db.sql
 ```

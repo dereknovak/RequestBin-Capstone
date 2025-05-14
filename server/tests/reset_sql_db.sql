@@ -1,7 +1,7 @@
 DROP DATABASE request_bin
 CREATE DATABASE request_bin;
 
-\c request_bin2
+\c request_bin
 
 CREATE TABLE Bin (
   id SERIAL PRIMARY KEY,
