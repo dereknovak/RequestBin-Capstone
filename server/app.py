@@ -1,11 +1,13 @@
 from flask import Flask, jsonify
 from src.utilities.url_generator import get_new_url
-from services.database_service import DatabaseService
+from src.services.database_service import DatabaseService
+from src.utilities.url_generator import get_new_url, is_unique_url
+from src import api_router
 
 app = Flask(__name__)
+app.register_blueprint(api_router.api)
 
 database = DatabaseService()
-
 # Use '0p1s21h' in the place of the <path:url> on the browser to test
 @app.route("/api/bin/<path:url>/request")
 def all(url):
@@ -76,6 +78,7 @@ def write_request(url):
 
 @app.route("/")
 def index():
+    get_new_url()
     return "Hello, world!"
 
 if __name__ == "__main__":
