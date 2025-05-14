@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from services.mongo_service import MongoService
 from services.psql_service import PsqlServices
+from src.utilities.url_generator import get_new_url
 
 app = Flask(__name__)
 
