@@ -1,4 +1,4 @@
-const baseUrl = '/api'
+const baseUrl = 'http://localhost:5003/api';
 
 let requests_yqgulne = [
   {
@@ -61,13 +61,15 @@ let requests_0p1s21h = [
   }
 ];
 
-let bins = [
-  "0p1s21h",
-  "yqgulne",
-  "f8ld6brsdf"
-]
+// let bins = [
+//   "0p1s21h",
+//   "yqgulne",
+//   "f8ld6brsdf"
+// ]
 
 const getAllBins = async () => {
+  const bins = await fetch(`${baseUrl}/bins`);
+  console.log(bins);
   return bins;
 }
 
@@ -81,7 +83,7 @@ const getAllRequests = async (bin_url) => {
   }
 }
 
-const createBin = async (newBin) => {  
+const createBin = async (newBin) => {
   bins.push(newBin);
   
   return newBin;
