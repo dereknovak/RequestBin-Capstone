@@ -81,9 +81,9 @@ const getAllRequests = async (bin_url) => {
   }
 }
 
-const createBin = async () => {  
-  bins.push(`testbin${bins.length + 1}`);
-  const newBin = await bins[bins.length - 1];
+const createBin = async (newBin) => {  
+  bins.push(newBin);
+  
   return newBin;
 }
 
@@ -99,7 +99,7 @@ const deleteAllRequests = async (bin_url) => {
   }
 }
 
-const deleteBin = async(bin_url) => {
+const deleteBin = async (bin_url) => {
   bins = bins.filter((u) => u !== bin_url);
 }
 

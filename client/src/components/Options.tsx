@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import service from '../services/requestbin_service';
 
-const Options = ({ setRequests }) => {
+const Options = ({ setRequests, bin, setBin, binList, setBinList }) => {
   const navigate = useNavigate();
 
   const handleBurn = () => {
@@ -10,7 +10,10 @@ const Options = ({ setRequests }) => {
   };
 
   const handleDelete = () => {
-    service.deleteBin('FAKE_URL');
+    console.log(bin);
+    service.deleteBin(bin);
+    setBinList(binList.filter(b => b !== bin));
+    setBin('');
     setRequests([]);
 
     navigate('/home');
