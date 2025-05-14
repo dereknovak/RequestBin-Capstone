@@ -1,6 +1,6 @@
 # CPython Files
-*__pycache__*
-*.cpython-313.pyc*
+__pycache__
+*.pyc
 
 # Editor directories and files
 .vscode/*
