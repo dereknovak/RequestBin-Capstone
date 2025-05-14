@@ -25,5 +25,4 @@ Once it's active and running on port 27017 you are good to go.
 
 Make sure PostgreSQL (version 16+) in installed and running locally. Run the following commands in this order:
 ```
-run psql < reset_sql_db.sql
-```
+run psql < tests/reset_sql_db.sql

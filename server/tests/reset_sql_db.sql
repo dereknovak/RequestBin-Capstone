@@ -1,4 +1,4 @@
-DROP DATABASE request_bin
+DROP DATABASE request_bin;
 CREATE DATABASE request_bin;
 
 \c request_bin
