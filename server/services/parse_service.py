@@ -28,5 +28,4 @@ def parse(request):
         "body": body
     }
 
-    print(data)
     return data
