@@ -10,6 +10,23 @@ database = DatabaseService()
 def all(url):
     return database.get_request_from_bin(url)
 
+@app.route("/<path:url>")
+def write_request(url):
+    db_urls = [wrap[0] for wrap in database.get_paths()]
+    if url in db_urls:
+        payload = {
+                "method": "GET",
+                "timestamp": '06:31:14 PM 5/9/2025',
+                "path": f"/{url}",
+                "headers": 'Accept: text/htmlAccept-Encoding: gzip, deflate, br, zstdAccept-Language: en-US,en;q=0.9,la;q=0.8Connection: close',
+                "query_params": 'Text=First+Dummy+Request',
+                "body": None
+                }
+        database.write_req(payload)
+        return "200 OK"
+    else:
+        return "No action performed"
+
 # '0p1s21h'
 
 # @app.route("/close/db")
