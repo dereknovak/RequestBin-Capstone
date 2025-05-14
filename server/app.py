@@ -12,7 +12,8 @@ def all(url):
 
 @app.route("/<path:url>")
 def write_request(url):
-    if url != 'favicon.ico':
+    db_urls = [wrap[0] for wrap in database.get_paths()]
+    if url in db_urls:
         payload = {
                 "method": "GET",
                 "timestamp": '06:31:14 PM 5/9/2025',
@@ -21,11 +22,10 @@ def write_request(url):
                 "query_params": 'Text=First+Dummy+Request',
                 "body": None
                 }
-        print(payload)
         database.write_req(payload)
         return "200 OK"
     else:
-        return "200 OK"
+        return "No action performed"
 
 # '0p1s21h'
 

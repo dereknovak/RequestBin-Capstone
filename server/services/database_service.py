@@ -27,5 +27,17 @@ class DatabaseService:
             del request["_id"]
         return requests_list
 
+    def get_paths(self):
+        query = """
+        SELECT path FROM bin;
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query)
+                result = cursor.fetchall()
+
+        return result
+
     def write_req(self, payload):
         return 
