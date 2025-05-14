@@ -26,7 +26,3 @@ class DatabaseService:
         for request in requests_list:
             del request["_id"]
         return requests_list
-
-    def close_db(self):
-        if self.connection and not self.connection.closed:
-            self.connection.close()

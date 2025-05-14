@@ -1,20 +1,21 @@
 from flask import Flask, jsonify
-# from services.mongo_service import MongoService
-# from services.psql_service import PsqlServices
 from services.database_service import DatabaseService
 
 app = Flask(__name__)
 
 database = DatabaseService()
 
-@app.route("/psql/all")
-def all2():
-    return database.get_request_from_bin('0p1s21h')
+# Use '0p1s21h' in the place of the <path:url> on the browser to test
+@app.route("/api/bin/<path:url>/request")
+def all(url):
+    return database.get_request_from_bin(url)
 
-@app.route("/close/db")
-def close_db():
-    database.close_db()
-    return "Connection closed (I hope)."
+# '0p1s21h'
+
+# @app.route("/close/db")
+# def close_db():
+#     database.close_db()
+#     return "Connection closed (I hope)."
 
 # @app.route("/mongo/all")
 # def all():
