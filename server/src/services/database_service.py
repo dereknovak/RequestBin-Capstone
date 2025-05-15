@@ -80,7 +80,7 @@ class DatabaseService:
         query = f"""
         SELECT requests.mongodb_doc_id
         FROM requests
-        INNER JOIN bins ON requests.bin_id = bins.id
+        LEFT JOIN bins ON requests.bin_id = bins.id
         WHERE bins.path = '{bin_url}';
         """
         with self.connection:
@@ -119,9 +119,7 @@ class DatabaseService:
         * Add entry in request table with bin_id and mongodb_doc_id
         """
         path = payload["path"].split("/")[1]
-        print("PATH", path)
-        insert = self.get_collection(path).insert_one(payload)
-        print("INSERT", insert.inserted_id)
+        mongo_db_object_id = self.get_collection("Requests").insert_one(payload)
 
         query1 = f"""
         SELECT id FROM bins WHERE path = '{path}';
@@ -134,7 +132,7 @@ class DatabaseService:
 
         query2 = f"""
         INSERT INTO requests (bin_id, mongodb_doc_id)
-        VALUES ('{result[0][0]}' , '{insert.inserted_id}');
+        VALUES ('{result[0][0]}' , '{mongo_db_object_id.inserted_id}');
         """
 
         with self.connection:
@@ -142,7 +140,7 @@ class DatabaseService:
                 cursor.execute(query2)
 
 
-        return insert.inserted_id
+        return mongo_db_object_id.inserted_id
       
     # database.delete_bin_requests(bin_url)
     def delete_bin_requests(self, bin_url):
