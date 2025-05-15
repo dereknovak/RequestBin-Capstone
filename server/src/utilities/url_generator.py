@@ -25,4 +25,4 @@ def get_new_url():
         else:
             continue
 def is_valid_url(url):
-    return (len(url) >= 7) and (len(url) < 10) and (is_unique_url(url))
+    return (len(url) >= 7) and (len(url) < 10) and (is_unique_url(url)) and all([chars in ALLOWED_CHARS for chars in url])

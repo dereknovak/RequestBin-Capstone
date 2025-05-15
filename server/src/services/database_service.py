@@ -71,9 +71,9 @@ class DatabaseService:
         with self.connection:
             with self.connection.cursor() as cursor:
                 cursor.execute(query)
-                result = cursor.fetchall()
+                # result = cursor.fetchall()
 
-        return result
+        return bin_url
 
     # requests = database.get_bin_requests(bin_url) - requests array & request objects within
     def get_bin_requests(self, bin_url):

@@ -21,7 +21,7 @@ def create_new_bin():
     data = request.get_json()
     requested_url = data.get('url')
     if (is_valid_url(requested_url)):
-        new_bin = database.create_bin(bin_url)
+        new_bin = database.create_bin(requested_url)
         # new_bin = mock_create_bin(requested_url)
         return jsonify(new_bin)
     elif (not is_unique_url(requested_url)):
