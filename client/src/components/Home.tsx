@@ -3,27 +3,30 @@ import service from "../services/requestbin_service";
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({ binList, setBinList }) => {
+  const [newUrl, setNewUrl] = useState('')
   const navigate = useNavigate();
 
   useEffect(() => {      
     (async () => {
       const allBins = await service.getAllBins();
-      setBinList(allBins.slice()); // Can remove slice once this is an actual backend call
+      const generatedBin = await service.generateBin();
+
+      setBinList(allBins);
+      setNewUrl(generatedBin);
     })();
   }, [])
   
   const handleFormSubmission = async (formData) => {
     try {
+      console.log('hello');
       const newUrl = formData.get('new_url');
       
-      if (binList.includes(newUrl)) throw new Error('Something went wrong');
       const newBin = await service.createBin(newUrl);
 
       const updatedList = binList.slice();
       updatedList.push(newBin);
       setBinList(updatedList);
       
-      console.log('hello');
       navigate(`/bin/${newBin}`);
     } catch (err) {
       if (err) {
@@ -45,7 +48,11 @@ const Home = ({ binList, setBinList }) => {
 
       <main>
         <div id='home-flex' className='home-flex'>
-          <NewBinForm onFormSubmission={handleFormSubmission}/>
+          <NewBinForm
+            onFormSubmission={handleFormSubmission}
+            newUrl={newUrl}
+            setNewUrl={setNewUrl}
+          />
           <Bins binList={binList} />
         </div>
       </main>
@@ -53,8 +60,7 @@ const Home = ({ binList, setBinList }) => {
   )
 }  
 
-const NewBinForm = ({ onFormSubmission }) => {
-  const [newUrl, setNewUrl] = useState(''); // BE Service to generate intial url
+const NewBinForm = ({ onFormSubmission, newUrl, setNewUrl}) => {
   
   const handleFormUrlChange = (e) => {
     setNewUrl(e.target.value);
