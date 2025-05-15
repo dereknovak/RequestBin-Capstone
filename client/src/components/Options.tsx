@@ -10,11 +10,13 @@ const Options = ({ setRequests, bin, setBin, binList, setBinList }) => {
   };
 
   const handleDelete = () => {
-    console.log(bin);
     service.deleteBin(bin);
     setBinList(binList.filter(b => b !== bin));
     setBin('');
     setRequests([]);
+    service.getAllBins().then(updatedBins => {
+      setBinList(updatedBins);
+    });
 
     navigate('/home');
   };

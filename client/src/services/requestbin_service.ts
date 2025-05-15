@@ -73,41 +73,38 @@ const getAllBins = async () => {
 };
 
 const getAllRequests = async (bin_url) => {
-  if (bin_url === 'yqgulne') {
-    return requests_yqgulne;
-  } else if (bin_url === '0p1s21h') {
-    return requests_0p1s21h;
-  } else {
-    return [];  
-  }
+  const response = await fetch(`${baseUrl}/bins/${bin_url}/requests`);
+
+  return response.json();
 };
 
 const createBin = async (newBin) => {
+  console.log(`${baseUrl}/bins`);
   const response = await fetch(`${baseUrl}/bins`, { 
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain',
+      'Content-Type': 'application/json',
     },
-    body: newBin,
+    body: JSON.stringify({ url: newBin })
   });
   
-  return response;
-};
-
-const deleteRequest = async (id) => {
-  requests.splice(id, 1);
+  return response.json();
 };
 
 const deleteAllRequests = async (bin_url) => {
-  if (bin_url === 'yqgulne') {
-    requests_yqgulne = [];
-  } else if (bin_url === '0p1s21h') {
-    requests_0p1s21h = [];
-  }
+  const response = await fetch(`${baseUrl}/bins/${bin_url}/requests/all`, {
+    method: 'DELETE',
+  });
+
+  return response;
 };
 
 const deleteBin = async (bin_url) => {
-  bins = bins.filter((u) => u !== bin_url);
+  const response = await fetch(`${baseUrl}/bins/${bin_url}`, {
+    method: 'DELETE',
+  });
+
+  return response;
 };
 
 export default {
@@ -115,7 +112,6 @@ export default {
   getAllBins,
   getAllRequests,
   createBin,
-  deleteRequest,
   deleteAllRequests,
   deleteBin
 };

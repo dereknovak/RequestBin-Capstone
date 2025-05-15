@@ -6,19 +6,13 @@ const Home = ({ binList, setBinList }) => {
   const [newUrl, setNewUrl] = useState('')
   const navigate = useNavigate();
 
-  useEffect(() => {      
-    (async () => {
-      const allBins = await service.getAllBins();
-      const generatedBin = await service.generateBin();
-
-      setBinList(allBins);
-      setNewUrl(generatedBin);
-    })();
-  }, [])
+  useEffect(() => {
+      service.getAllBins().then(data => setBinList(data));
+      service.generateBin().then(data => setNewUrl(data));
+  }, []);
   
   const handleFormSubmission = async (formData) => {
     try {
-      console.log('hello');
       const newUrl = formData.get('new_url');
       
       const newBin = await service.createBin(newUrl);
@@ -27,6 +21,7 @@ const Home = ({ binList, setBinList }) => {
       updatedList.push(newBin);
       setBinList(updatedList);
       
+      alert(`${newBin} bin has been created!`);
       navigate(`/bin/${newBin}`);
     } catch (err) {
       if (err) {

@@ -171,6 +171,11 @@ span {
 
 .bin_list_link:hover { text-decoration: underline; }
 
+.time, .date {
+  display: flex;
+  width: 100px;
+}
+
 #burn-button {
   margin: 0 1px;
   background-color: rgb(255, 186, 58);
@@ -191,10 +196,17 @@ span {
   filter: invert();
 }
 
+#clock, #calendar {
+  width: 10px;
+  filter: invert();
+  margin: 0 2px;
+}
+
 #clipboard:hover, #checkbox:hover {
   cursor: pointer;
 }
 
 #bin-data {
+  width: 80%;
   display: block;
 }

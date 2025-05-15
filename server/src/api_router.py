@@ -8,7 +8,7 @@ database = DatabaseService()
 
 @api.get("/bins/generate")
 def generate_bin_url():
-  return jsonify(get_new_url())
+  return get_new_url()
 
 @api.get("/bins")
 def get_all_bins():

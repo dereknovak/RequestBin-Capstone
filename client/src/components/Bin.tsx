@@ -22,6 +22,7 @@ const Bin = ({ binList, setBinList }) => {
 
   useEffect(() => {
     service.getAllRequests(params.bin_url).then(data => {
+      // console.log(data);
       setRequests(data);
     });
 
