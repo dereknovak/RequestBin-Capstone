@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, Blueprint
-from services.database_service import DatabaseService
+from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url
 from tests.api_test_data import requests, bins, mock_delete_bin # Remove once db service works 
 
