@@ -10,12 +10,7 @@ def generate_random_url():
     return ''.join([random.choice(ALLOWED_CHARS) for i in range(URL_LENGTH)])
 
 def is_unique_url(url):
-    db_urls = [record[0] for record in database.get_paths()]
-
-    if url in db_urls:
-        return False
-    else:
-        return True
+    return not is_existing_url(url)
     
 def get_new_url():
     while (True):
@@ -24,5 +19,15 @@ def get_new_url():
             return new_url
         else:
             continue
+
 def is_valid_url(url):
     return (len(url) >= 7) and (len(url) < 10) and (is_unique_url(url)) and all([chars in ALLOWED_CHARS for chars in url])
+
+def is_existing_url(url):
+    db_urls = [record[0] for record in database.get_paths()]
+
+    if url in db_urls:
+        print(url)
+        return True
+    else:
+        return False

@@ -1,1 +1,1 @@
-DELETE http://localhost:5003/api/bins/asdf/requests/all
+DELETE http://localhost:5003/api/bins/testurl/requests/all
