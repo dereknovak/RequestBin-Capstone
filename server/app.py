@@ -1,8 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from src.utilities.url_generator import get_new_url
 from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url
+from src.services.parse_service import parse
+from src.services.mongo_service import MongoService
 from src import api_router
 
 app = Flask(__name__)
@@ -40,14 +42,24 @@ database = DatabaseService()
 #     return "Connection closed (I hope)."
 
 # @app.route("/mongo/all")
-# def all():
-#     """
-#     Show Requests collection from RequestBin database in JSON.
-#     """
-#     mongo_service = MongoService('mongodb://localhost:27017/', 'RequestBin')
-#     
-#     return jsonify(mongo_service.find_all('Requests'))
+# def all2():
+#       """
+#       Show Requests collection from RequestBin database in JSON.
+#       """
+#       mongo_service = MongoService('mongodb://localhost:27017/', 'RecycleBin')
 #
+#       return jsonify(mongo_service.find_all('yqgulne'))
+
+@app.route("/<string:url>/<path:anything>")
+def write_request(url, anything):
+    db_urls = [wrap[0] for wrap in database.get_paths()]
+    if url in db_urls:
+        payload = parse(request)
+        database.write_req(payload)
+        return "200 OK"
+    else:
+        return "No action performed"
+
 # @app.route("/mongo/burn")
 # def burn():
 #     """

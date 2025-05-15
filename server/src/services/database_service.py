@@ -105,9 +105,45 @@ class DatabaseService:
             with self.connection.cursor() as cursor:
                 cursor.execute(query)
                 rows_deleted = cursor.rowcount
-
         return f"{rows_deleted} bin(s) deleted in this operation."
-    
+
+    def get_collection(self, collection_name):
+        return self.mongo_db[collection_name]
+
+    def write_req(self, payload):
+        """
+        Plan for method:
+        * Add payload to mongoDB
+        * Get respective id of payload from mongoDB
+        * Use path attribute from payload to get id from bin
+        * Add entry in request table with bin_id and mongodb_doc_id
+        """
+        path = payload["path"].split("/")[1]
+        print("PATH", path)
+        insert = self.get_collection(path).insert_one(payload)
+        print("INSERT", insert.inserted_id)
+
+        query1 = f"""
+        SELECT id FROM bin WHERE path = '{path}';
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query1)
+                result = cursor.fetchall()
+
+        query2 = f"""
+        INSERT INTO request (bin_id, mongodb_doc_id)
+        VALUES ('{result[0][0]}' , '{insert.inserted_id}');
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query2)
+
+
+        return insert.inserted_id
+      
     # database.delete_bin_requests(bin_url)
     def delete_bin_requests(self, bin_url):
         query = f"""
@@ -124,5 +160,3 @@ class DatabaseService:
                 rows_deleted = cursor.rowcount
 
         return f"{rows_deleted} request(s) deleted in this operation."
-
-

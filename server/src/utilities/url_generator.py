@@ -1,4 +1,3 @@
-import random
 from src.services.database_service import DatabaseService
 
 ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -24,6 +23,5 @@ def get_new_url():
             return new_url
         else:
             continue
-
 def is_valid_url(url):
     return (len(url) >= 7) and (len(url) < 10) and (is_unique_url(url))
