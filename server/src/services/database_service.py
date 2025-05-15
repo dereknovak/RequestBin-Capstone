@@ -124,7 +124,7 @@ class DatabaseService:
         print("INSERT", insert.inserted_id)
 
         query1 = f"""
-        SELECT id FROM bin WHERE path = '{path}';
+        SELECT id FROM bins WHERE path = '{path}';
         """
 
         with self.connection:
@@ -133,7 +133,7 @@ class DatabaseService:
                 result = cursor.fetchall()
 
         query2 = f"""
-        INSERT INTO request (bin_id, mongodb_doc_id)
+        INSERT INTO requests (bin_id, mongodb_doc_id)
         VALUES ('{result[0][0]}' , '{insert.inserted_id}');
         """
 
