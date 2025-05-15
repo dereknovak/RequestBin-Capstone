@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, Blueprint
+from flask import Flask, jsonify, Blueprint, request
 from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url, is_valid_url
-from tests.api_test_data import requests, bins, mock_delete_bin # Remove once db service works 
+from tests.api_test_data import mock_burn_bin, requests, bins, mock_delete_bin, mock_create_bin # Remove once db service works 
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -17,40 +17,34 @@ def get_all_bins():
     return jsonify(bins)
    
 @api.post("/bins")
-def create_new_bin(bin_url):
-    # # get bin_url from data
-    # if (is_valid_url(bin_url)): # add is valid url function to url generator utility file
-    #     new_bin = database.create_bin(bin_url)
-    #     return jsonify(new_bin)
-    # elif (not is_unique_url(bin_url)): #- update logic with line 17 from app file - include in url generator
-    #     ''
-    #     # throw invalid bin error and give message for duplicate bin
-    # else:
-    #     ''
-    #     # throw invalid error and generic valid bin message
-    
-    return 'test'
+def create_new_bin():
+    data = request.get_json()
+    requested_url = data.get('url')
+    if (is_valid_url(requested_url)):
+        # new_bin = database.create_bin(bin_url)
+        new_bin = mock_create_bin(requested_url)
+        return jsonify(new_bin)
+    elif (not is_unique_url(requested_url)):
+        return jsonify('That URL is already in use.'), 400
+    else:
+        return jsonify("Invalid URL. Must be 7-10 characters using only characters 0-9 and a-Z.")
 
 @api.get("/bins/<string:bin_url>/requests")
 def get_bin_requests(bin_url):
-    # requests = database.get_bin_requests(bin_url) - requests array & request objects within - finish updating mock of requests
+    # requests = database.get_bin_requests(bin_url) - requests array & request objects within
     return jsonify(requests)
 
 @api.delete("/bins/<string:bin_url>")
 def delete_bin(bin_url):
-    # database.is_existing_url
-      # if so
-      # database.delete_bin(bin_url)
-    # else
-      # send error message to frontend - bin doesnt exist
+    # database.delete_bin(bin_url)
     mock_delete_bin(bin_url)
-    return '', 200
+    return {}
 
-# @api.delete("/bins/<string:url>/requests")
-# def burn_bin_requests():
-    # if no requests return
+@api.delete("/bins/<string:bin_url>/requests/all")
+def burn_bin_requests(bin_url):
     # database.delete_bin_requests(bin_url)
-  
+    mock_burn_bin(bin_url)
+    return {}
 
 # @api.delete("bin/<string:url>/requests/<string:request_id>")
 # def delete_request(request_id):

@@ -52,4 +52,11 @@ bins = [
 ]
 
 def mock_delete_bin(bin_url):
-  bins.remove(bin_url)
+    bins.remove(bin_url)
+
+def mock_burn_bin(bin_url):
+    requests.clear()
+
+def mock_create_bin(bin_url):
+    bins.append(bin_url)
+    return bin_url

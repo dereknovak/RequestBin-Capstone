@@ -17,7 +17,6 @@ def is_unique_url(url):
     else:
         return True
     
-
 def get_new_url():
     while (True):
         new_url = generate_random_url()
@@ -27,4 +26,4 @@ def get_new_url():
             continue
 
 def is_valid_url(url):
-    return (len(url) > 7) and (len(url) < 10) and (is_unique_url(url))
+    return (len(url) >= 7) and (len(url) < 10) and (is_unique_url(url))
