@@ -1,3 +1,4 @@
+import random
 from src.services.database_service import DatabaseService
 
 ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'

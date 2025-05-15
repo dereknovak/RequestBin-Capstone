@@ -3,12 +3,12 @@ CREATE DATABASE request_bin;
 
 \c request_bin
 
-CREATE TABLE Bin (
+CREATE TABLE Bins (
   id SERIAL PRIMARY KEY,
   path VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE Request (
+CREATE TABLE Requests (
   id SERIAL PRIMARY KEY,
   bin_id INTEGER REFERENCES Bin(id) NOT NULL,
   mongodb_doc_id VARCHAR(24) NOT NULL
