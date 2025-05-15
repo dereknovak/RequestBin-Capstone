@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from src.utilities.url_generator import get_new_url
 from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url
 from src import api_router
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(api_router.api)
 
 database = DatabaseService()
