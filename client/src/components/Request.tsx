@@ -50,8 +50,13 @@ const Method = ({ data }) => {
 };
 
 const TimeStamp = ({ data }) => {
+  const [time, date] = [data.slice(0, 11), data.slice(12)];
+
   return (
-    <dt>{data}</dt>
+    <>
+      <dt className='time'><img id='clock' src='/src/assets/clock.svg' /> {time}</dt>
+      <dt className='date'><img id='calendar' src='/src/assets/calendar.svg' /> {date}</dt>
+    </>
   );
 };
 

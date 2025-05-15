@@ -14,7 +14,9 @@ const Options = ({ setRequests, bin, setBin, binList, setBinList }) => {
     setBinList(binList.filter(b => b !== bin));
     setBin('');
     setRequests([]);
-    service.getAllBins();
+    service.getAllBins().then(updatedBins => {
+      setBinList(updatedBins);
+    });
 
     navigate('/home');
   };
