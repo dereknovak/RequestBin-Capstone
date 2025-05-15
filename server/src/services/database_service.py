@@ -39,6 +39,9 @@ class DatabaseService:
 
         return result
 
+    def get_collection(self, collection_name):
+        return self.mongo_db[collection_name]
+
     def write_req(self, payload):
         """
         Plan for method:
@@ -47,4 +50,28 @@ class DatabaseService:
         * Use path attribute from payload to get id from bin
         * Add entry in request table with bin_id and mongodb_doc_id
         """
-        return 
+        path = payload["path"].split("/")[1]
+        print("PATH", path)
+        insert = self.get_collection(path).insert_one(payload)
+        print("INSERT", insert.inserted_id)
+
+        query1 = f"""
+        SELECT id FROM bin WHERE path = '{path}';
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query1)
+                result = cursor.fetchall()
+
+        query2 = f"""
+        INSERT INTO request (bin_id, mongodb_doc_id)
+        VALUES ('{result[0][0]}' , '{insert.inserted_id}');
+        """
+
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query2)
+
+
+        return insert.inserted_id

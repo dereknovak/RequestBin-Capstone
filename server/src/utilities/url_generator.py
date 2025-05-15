@@ -1,5 +1,5 @@
 import random
-from services.psql_service import PsqlServices
+from src.services.psql_service import PsqlServices
 
 ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 URL_LENGTH = 7
