@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from src.utilities.url_generator import get_new_url
 from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url
@@ -7,33 +8,32 @@ from src.services.mongo_service import MongoService
 from src import api_router
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(api_router.api)
 
 database = DatabaseService()
 # Use '0p1s21h' in the place of the <path:url> on the browser to test
-@app.route("/api/bin/<path:url>/request")
-def all(url):
-    return database.get_request_from_bin(url)
+# @app.route("/api/bin/<path:url>/request")
+# def all(url):
+#     return database.get_request_from_bin(url)
 
+# @app.route("/<path:url>")
+# def write_request(url):
+#     db_urls = [wrap[0] for wrap in database.get_paths()]
+#     if url in db_urls:
+#         payload = {
+#                 "method": "GET",
+#                 "timestamp": '06:31:14 PM 5/9/2025',
+#                 "path": f"/{url}",
+#                 "headers": 'Accept: text/htmlAccept-Encoding: gzip, deflate, br, zstdAccept-Language: en-US,en;q=0.9,la;q=0.8Connection: close',
+#                 "query_params": 'Text=First+Dummy+Request',
+#                 "body": None
+#                 }
+#         database.write_req(payload)
+#         return "200 OK"
+#     else:
+#         return "No action performed"
 
-"""
-@app.route("/<path:url>")
-def write_request(url):
-    db_urls = [wrap[0] for wrap in database.get_paths()]
-    if url in db_urls:
-        payload = {
-                "method": "GET",
-                "timestamp": '06:31:14 PM 5/9/2025',
-                "path": f"/{url}",
-                "headers": 'Accept: text/htmlAccept-Encoding: gzip, deflate, br, zstdAccept-Language: en-US,en;q=0.9,la;q=0.8Connection: close',
-                "query_params": 'Text=First+Dummy+Request',
-                "body": None
-                }
-        database.write_req(payload)
-        return "200 OK"
-    else:
-        return "No action performed"
-"""
 # '0p1s21h'
 
 # @app.route("/close/db")

@@ -1,4 +1,4 @@
-const baseUrl = '/api'
+const baseUrl = 'http://localhost:5003/api';
 
 let requests_yqgulne = [
   {
@@ -61,15 +61,16 @@ let requests_0p1s21h = [
   }
 ];
 
-let bins = [
-  "0p1s21h",
-  "yqgulne",
-  "f8ld6brsdf"
-]
+const generateBin = async () => {
+  const response = await fetch(`${baseUrl}/bins/generate`);
+
+  return response.text();
+};
 
 const getAllBins = async () => {
-  return bins;
-}
+  const response = await fetch(`${baseUrl}/bins`);
+  return response.json();
+};
 
 const getAllRequests = async (bin_url) => {
   if (bin_url === 'yqgulne') {
@@ -79,17 +80,23 @@ const getAllRequests = async (bin_url) => {
   } else {
     return [];  
   }
-}
+};
 
-const createBin = async (newBin) => {  
-  bins.push(newBin);
+const createBin = async (newBin) => {
+  const response = await fetch(`${baseUrl}/bins`, { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+    body: newBin,
+  });
   
-  return newBin;
-}
+  return response;
+};
 
 const deleteRequest = async (id) => {
   requests.splice(id, 1);
-}
+};
 
 const deleteAllRequests = async (bin_url) => {
   if (bin_url === 'yqgulne') {
@@ -97,17 +104,18 @@ const deleteAllRequests = async (bin_url) => {
   } else if (bin_url === '0p1s21h') {
     requests_0p1s21h = [];
   }
-}
+};
 
 const deleteBin = async (bin_url) => {
   bins = bins.filter((u) => u !== bin_url);
-}
+};
 
 export default {
+  generateBin,
   getAllBins,
   getAllRequests,
   createBin,
   deleteRequest,
   deleteAllRequests,
   deleteBin
-}
+};

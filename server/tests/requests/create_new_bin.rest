@@ -1,0 +1,4 @@
+POST http://localhost:5003/api/bins
+Content-Type: application/json
+
+{"url": "testurl"}
