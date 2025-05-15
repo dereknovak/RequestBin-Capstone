@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, Blueprint, request
 from src.services.database_service import DatabaseService
 from src.utilities.url_generator import get_new_url, is_unique_url, is_valid_url
-from tests.api_test_data import mock_burn_bin, requests, mock_delete_bin, mock_create_bin # Remove once db service works 
+# from tests.api_test_data import mock_burn_bin, requests, mock_delete_bin, mock_create_bin # Remove once db service works 
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
