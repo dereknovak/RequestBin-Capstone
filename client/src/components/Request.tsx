@@ -66,7 +66,11 @@ const Headers = ({ data, visibility, toggleVisibility }) => {
     <dt>
       <button type='button' onClick={() => toggleVisibility('headers')}>Headers</button>
       <pre className={visibility.headers}>
-        {data}
+        <ul>
+          {Object.entries(data).map((pair, idx) =>
+            <li key={idx}>{pair[0]}: {pair[1]}</li>
+          )}
+        </ul>
       </pre>
     </dt>
   );
@@ -78,7 +82,7 @@ const Body = ({ data, visibility, toggleVisibility }) => {
       <dt>
         <button type='button' onClick={() => toggleVisibility('body')}>Body</button>
         <pre className={visibility.body}>
-          {data}
+          {JSON.stringify(data)}
         </pre>
       </dt>
     );
@@ -91,7 +95,11 @@ const QueryParams = ({ data, visibility, toggleVisibility }) => {
       <dt>
         <button type='button' onClick={() => toggleVisibility('queryParams')}>Query Parameters</button>
         <pre className={visibility.queryParams}>
-          {data}
+        <ul>
+          {Object.values(data).map((param, idx) =>
+            <li key={idx}>{param}</li>
+          )}
+        </ul>
         </pre>
       </dt>
     );

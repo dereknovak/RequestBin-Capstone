@@ -196,5 +196,6 @@ span {
 }
 
 #bin-data {
+  width: 80%;
   display: block;
 }
