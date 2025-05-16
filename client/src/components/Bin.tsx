@@ -53,7 +53,7 @@ const Bin = ({ binList, setBinList }) => {
 
         <ol>
           {requests.map(request => 
-            <Request key={request.timestamp} data={request} /> // Change key to something other than timestamp
+            <Request key={request.timestamp} data={request} />
           )}
         </ol>
       </main>

@@ -18,7 +18,7 @@ const Request = ({ data }) => {
 
   return (
     <li>
-      <dl>
+      <dl className={data.method.toLowerCase()}>
         <div className='left-request-info'>
           <Method data={data.method} />
           <TimeStamp data={data.timestamp} />
