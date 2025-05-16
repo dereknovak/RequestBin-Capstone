@@ -46,7 +46,7 @@ const Bin = ({ binList, setBinList }) => {
           <h1>Bin: {params.bin_url}</h1>
           <p className='request-count'>Requests: {requests.length}</p>
           <p>
-            Requests are collected at <kbd>{`https://requestbincap.stone/${params.bin_url}`}</kbd>
+            Requests are collected at <kbd>{`http://localhost:5003/${params.bin_url}`}</kbd>
             <CopyURLSpan url={params.bin_url} />
           </p>
         </div>
@@ -66,7 +66,7 @@ const CopyURLSpan = ({ url }) => {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(`https://requestbincap.stone/${url}`);
+      await navigator.clipboard.writeText(`http://localhost:5003/${url}`);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
