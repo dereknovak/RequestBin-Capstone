@@ -7,7 +7,7 @@ poetry install
 
 Make sure mongod server is active locally. You can find instructions on how to do so here: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu 
 
-Here are the most important commands. To start the `mongod` process:
+Here are the most important commands (they don't apply to Mac computers, please click link above for that). To start the `mongod` process:
 ```
 sudo systemctl start mongod
 ```
