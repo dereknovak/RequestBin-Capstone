@@ -111,7 +111,9 @@ pre ul {
 
 pre {
   max-height: 150px;
-
+  max-width: 600px;
+  min-width: 100%;
+  width: auto;
   overflow: auto;
   overflow-x: auto;
   padding: 1rem;
@@ -120,8 +122,6 @@ pre {
   background-color: #414141;
   white-space: pre;
   word-wrap: break-word;
-  width: 100%;
-  max-width: none;
 }
 
 kbd {
