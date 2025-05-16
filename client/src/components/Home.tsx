@@ -7,17 +7,16 @@ const Home = ({ binList, setBinList }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-      service.getAllBins().then(data => setBinList(data));
+      service.getAllBins().then(data => setBinList(data.flat()));
       service.generateBin().then(data => setNewUrl(data));
   }, []);
   
   const handleFormSubmission = async (formData) => {
     try {
       const newUrl = formData.get('new_url');
-      
       const newBin = await service.createBin(newUrl);
-
       const updatedList = binList.slice();
+
       updatedList.push(newBin);
       setBinList(updatedList);
       
@@ -52,11 +51,10 @@ const Home = ({ binList, setBinList }) => {
         </div>
       </main>
     </>  
-  )
-}  
+  );
+};
 
 const NewBinForm = ({ onFormSubmission, newUrl, setNewUrl}) => {
-  
   const handleFormUrlChange = (e) => {
     setNewUrl(e.target.value);
   };  
@@ -78,7 +76,7 @@ const NewBinForm = ({ onFormSubmission, newUrl, setNewUrl}) => {
         <button>Create!</button>
       </form>
     </div>     
-  )
+  );
 };  
 
 const Bins = ({ binList }) => {
@@ -97,7 +95,7 @@ const Bins = ({ binList }) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

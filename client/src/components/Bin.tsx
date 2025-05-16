@@ -8,8 +8,9 @@ import Request from './Request';
 import clipboardIcon from '../assets/clipboard.svg';
 import checkboxIcon from '../assets/checkbox.svg';
 
+const baseUrl = 'http://localhost:5003';
+
 const Bin = ({ binList, setBinList }) => {
-  const [bin, setBin] = useState('');
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   
@@ -24,8 +25,6 @@ const Bin = ({ binList, setBinList }) => {
     service.getAllRequests(params.bin_url).then(data => {
       setRequests(data.slice().reverse());
     });
-
-    setBin(params.bin_url);
   }, []);
 
   return (
@@ -35,7 +34,6 @@ const Bin = ({ binList, setBinList }) => {
         <Options
           setRequests={setRequests}
           bin={params.bin_url}
-          setBin={setBin}
           binList={binList}
           setBinList={setBinList}
         />
@@ -46,7 +44,7 @@ const Bin = ({ binList, setBinList }) => {
           <h1>Bin: {params.bin_url}</h1>
           <p className='request-count'>Requests: {requests.length}</p>
           <p>
-            Requests are collected at <kbd>{`http://localhost:5003/${params.bin_url}`}</kbd>
+            Requests are collected at <kbd>{`${baseUrl}/${params.bin_url}`}</kbd>
             <CopyURLSpan url={params.bin_url} />
           </p>
         </div>
@@ -66,7 +64,7 @@ const CopyURLSpan = ({ url }) => {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(`http://localhost:5003/${url}`);
+      await navigator.clipboard.writeText(`${baseUrl}/${url}`);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
