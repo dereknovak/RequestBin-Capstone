@@ -27,7 +27,6 @@ def is_existing_url(url):
     db_urls = [record[0] for record in database.get_paths()]
 
     if url in db_urls:
-        print(url)
         return True
     else:
         return False

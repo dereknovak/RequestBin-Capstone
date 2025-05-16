@@ -13,7 +13,3 @@ CREATE TABLE Requests (
   bin_id INTEGER REFERENCES Bins(id) ON DELETE CASCADE NOT NULL,
   mongodb_doc_id VARCHAR(24) NOT NULL
 );
-
-INSERT INTO Bins (path) VALUES ('0p1s21h');
-INSERT INTO Bins (path) VALUES ('yqgulne');
-INSERT INTO Bins (path) VALUES ('f8ld6brsdf');
