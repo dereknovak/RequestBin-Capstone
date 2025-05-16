@@ -62,7 +62,6 @@ class DatabaseService:
 
         return result
 
-    # new_bin = database.create_bin(bin_url)
     def create_bin(self, bin_url):
         query = f"""
         INSERT INTO Bins (path) VALUES ('{bin_url}');
@@ -71,11 +70,9 @@ class DatabaseService:
         with self.connection:
             with self.connection.cursor() as cursor:
                 cursor.execute(query)
-                # result = cursor.fetchall()
 
         return bin_url
 
-    # requests = database.get_bin_requests(bin_url) - requests array & request objects within
     def get_bin_requests(self, bin_url):
         query = f"""
         SELECT requests.mongodb_doc_id
@@ -95,7 +92,6 @@ class DatabaseService:
 
         return requests_list
 
-    # database.delete_bin(bin_url)
     def delete_bin(self, bin_url):
         query = f"""
         DELETE FROM bins WHERE path = '{bin_url}';
@@ -111,14 +107,7 @@ class DatabaseService:
         return self.mongo_db[collection_name]
 
     def write_req(self, payload):
-        """
-        Plan for method:
-        * Add payload to mongoDB
-        * Get respective id of payload from mongoDB
-        * Use path attribute from payload to get id from bin
-        * Add entry in request table with bin_id and mongodb_doc_id
-        """
-        path = payload["path"].split("/")[1]
+        path = payload["bin_url"]
         mongo_db_object_id = self.get_collection("Requests").insert_one(payload)
 
         query1 = f"""
@@ -142,7 +131,6 @@ class DatabaseService:
 
         return mongo_db_object_id.inserted_id
       
-    # database.delete_bin_requests(bin_url)
     def delete_bin_requests(self, bin_url):
         query = f"""
         DELETE FROM requests
