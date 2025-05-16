@@ -50,8 +50,8 @@ database = DatabaseService()
 #
 #       return jsonify(mongo_service.find_all('yqgulne'))
 
-@app.route("/<string:url>")
-@app.route("/<string:url>/<path:subpath>")
+@app.route("/<string:url>", methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])
+@app.route("/<string:url>/<path:subpath>", methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])
 def write_request(url, subpath=None):
     db_urls = [wrap[0] for wrap in database.get_paths()]
     if url in db_urls:
