@@ -5,7 +5,6 @@ def parse(request):
     method = request.method
     headers = request.headers
     body = request.get_data(as_text=True)
-    #params = request.query_string
     params = request.args
     path = request.path
     time = datetime.now().isoformat()
@@ -15,18 +14,25 @@ def parse(request):
     for (x, y) in headers:
         header_array[x] = y
 
-    param_array = {}
+    query_params = {}
     for x in params:
-        param_array[x] = params[x]
+        query_params[x] = params[x]
+
+    full_path = path
+    if(len(query_params) != 0):
+        full_path = full_path + "?"
+        for query in query_params:
+            full_path = full_path + query + "=" + query_params[query] + "&"
+        full_path = full_path[:-1]
 
     data = {
         "method": method,
         "timestamp": time,
-        "path": path,
+        "path": full_path,
         "headers": header_array,
-        "query_params": param_array,
-        "body": body
+        "query_params": query_params,
+        "body": body,
+        "bin_url": path.split('/')[1]
     }
 
-    print(data)
     return data

@@ -8,7 +8,7 @@ database = DatabaseService()
 
 @api.get("/bins/generate")
 def generate_bin_url():
-  return jsonify(get_new_url())
+  return get_new_url()
 
 @api.get("/bins")
 def get_all_bins():
@@ -49,7 +49,7 @@ def burn_bin_requests(bin_url):
         database.delete_bin_requests(bin_url)
         return {}
     else:
-        return jsonify("Invalid URL. Bin not found."), 400    
+        return jsonify("Invalid URL. Bin not found."), 400
 
 # @api.delete("bins/<string:url>/requests/<string:request_id>")
 # def delete_request(request_id):
