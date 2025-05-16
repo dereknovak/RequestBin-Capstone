@@ -5,19 +5,15 @@ const Options = ({ setRequests, bin, setBin, binList, setBinList }) => {
   const navigate = useNavigate();
 
   const handleBurn = () => {
-    service.deleteAllRequests('FAKE_URL');
+    service.deleteAllRequests(bin);
     setRequests([]);
   };
 
   const handleDelete = () => {
     service.deleteBin(bin);
-    setBinList(binList.filter(b => b !== bin));
     setBin('');
     setRequests([]);
-    service.getAllBins().then(updatedBins => {
-      setBinList(updatedBins);
-    });
-
+    setBinList(binList.filter(b => b !== bin));
     navigate('/home');
   };
 

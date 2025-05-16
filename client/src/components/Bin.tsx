@@ -35,7 +35,7 @@ const Bin = ({ binList, setBinList }) => {
         <h2 onClick={redirectHome}>RequestBin<em>Capstone</em></h2>
         <Options
           setRequests={setRequests}
-          bin={bin}
+          bin={params.bin_url}
           setBin={setBin}
           binList={binList}
           setBinList={setBinList}
