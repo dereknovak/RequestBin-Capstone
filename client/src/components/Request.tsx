@@ -34,7 +34,7 @@ const Request = ({ data }) => {
             visibility={visibility}
             toggleVisibility={toggleVisibility} />
           <QueryParams
-            data={data.queryParams}
+            data={data.query_params}
             visibility={visibility}
             toggleVisibility={toggleVisibility} />
         </div>
@@ -50,7 +50,7 @@ const Method = ({ data }) => {
 };
 
 const TimeStamp = ({ data }) => {
-  const [time, date] = [data.slice(0, 11), data.slice(12)];
+  const [date, time] = [data.slice(0, 10), data.slice(11, 19)];
 
   return (
     <>
@@ -95,14 +95,14 @@ const Body = ({ data, visibility, toggleVisibility }) => {
 };
 
 const QueryParams = ({ data, visibility, toggleVisibility }) => {
-  if (data) {
+  if (Object.values(data).length) {
     return (
       <dt>
         <button type='button' onClick={() => toggleVisibility('queryParams')}>Query Parameters</button>
         <pre className={visibility.queryParams}>
         <ul>
-          {Object.values(data).map((param, idx) =>
-            <li key={idx}>{param}</li>
+          {Object.entries(data).map((pair, idx) =>
+            <li key={idx}>{pair[0]}: {pair[1]}</li>
           )}
         </ul>
         </pre>
