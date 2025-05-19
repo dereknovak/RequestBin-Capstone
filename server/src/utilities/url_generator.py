@@ -1,5 +1,5 @@
 import random
-from src.services.database_service import DatabaseService
+from services.database_service import DatabaseService
 
 ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 URL_LENGTH = 7
