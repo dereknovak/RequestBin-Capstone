@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, Blueprint, request
 from services.database_service import DatabaseService
-from utilities.url_generator import get_new_url, is_existing_url, is_valid_url
+from services.url_generator import get_new_url, is_existing_url, is_valid_url
 
 api = Blueprint('api', __name__, url_prefix='/api')
 

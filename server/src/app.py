@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from utilities.url_generator import get_new_url
+from services.url_generator import get_new_url
 from services.database_service import DatabaseService
 from services.parse_service import parse
 import api_router
