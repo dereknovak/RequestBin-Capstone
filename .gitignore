@@ -1,3 +1,5 @@
+.env
+
 # Logs
 logs
 *.log
@@ -7,10 +9,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Front-End Files
 node_modules
 dist
 dist-ssr
 *.local
+
+# Backend Files
+__pycache__
+*.pyc
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +29,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
