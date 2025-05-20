@@ -5,6 +5,8 @@ from pymongo import MongoClient
 import psycopg2
 from bson.objectid import ObjectId
 
+load_dotenv()
+
 class DatabaseService:
     def __init__(self):
         self.mongo_client = MongoClient('mongodb://localhost:27017/') 
@@ -13,7 +15,7 @@ class DatabaseService:
             dbname=os.getenv('POSTGRES_DB', 'request_bin'),
             user=os.getenv('POSTGRES_USER', 'postgres'),
             password=os.getenv('POSTGRES_PASSWORD', ''),
-            host=os.getenv('POSTGRES_HOST', 'localhost')
+            host=os.getenv('POSTGRES_HOST', '127.0.0.1')
         )
 
     def get_paths(self):
