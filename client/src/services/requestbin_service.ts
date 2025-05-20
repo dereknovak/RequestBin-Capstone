@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5003/api';
+const baseUrl = 'http://18.207.113.52/api';
 
 const generateBin = async () => {
   const response = await fetch(`${baseUrl}/bins/generate`);
