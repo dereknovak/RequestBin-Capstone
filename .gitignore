@@ -1,4 +1,5 @@
 .env
+global-bundle.pem
 
 # Logs
 logs

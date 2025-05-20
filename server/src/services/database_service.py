@@ -1,21 +1,95 @@
 from flask import jsonify
-import os
-from dotenv import load_dotenv
+import json
+import boto3
+from botocore.exceptions import ClientError
 from pymongo import MongoClient
 import psycopg2
 from bson.objectid import ObjectId
 
-load_dotenv()
+def get_mongodb_uri(credentials):
+    username = credentials['username']
+    password = credentials['password']
+    host = credentials['host']
+    port = credentials['port']
+    remaining_string = '?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
+
+    return f'mongodb://{username}:{password}@{host}:{port}/{remaining_string}'
+
+
+def get_db_credentials():
+    postgres_secret_name = "postgresql-rds-cred"
+    mongodb_secret_name = "mongodb-docdb-cred"
+    region_name = "us-east-1"
+
+    session = boto3.session.Session()
+    client = session.client(
+        service_name='secretsmanager',
+        region_name=region_name
+    )
+
+    try:
+        postgres_secret_response = client.get_secret_value(
+            SecretId=postgres_secret_name
+        )
+
+        mongodb_secret_response = client.get_secret_value(
+            SecretId=mongodb_secret_name
+        )
+
+    except ClientError as e:
+        raise e
+
+    postgres_credentials = json.loads(postgres_secret_response['SecretString'])
+    mongodb_credentials = json.loads(mongodb_secret_response['SecretString'])
+
+    return [postgres_credentials, get_mongodb_uri(mongodb_credentials)]
+
+
+def get_db_uri_params():
+    requested_params = [
+        'mongodb-ec2-uri',
+        'postgres-port',
+        'postgres-ip',
+        'mongodb-request-bin-dbname',
+        'postgres-request-bin-dbname',
+    ]
+
+    region_name = "us-east-1"
+
+    session = boto3.session.Session()
+    client = session.client(
+        service_name='ssm',
+        region_name=region_name
+    )
+
+    try:
+        get_params_response = client.get_parameters(
+	    Names=requested_params,
+            WithDecryption=True
+        )
+    except ClientError as e:
+        raise e
+
+    params = get_params_response['Parameters']
+    uri_values = { param['Name']:param['Value'] for param in params }
+	
+    return uri_values
+
 
 class DatabaseService:
     def __init__(self):
-        self.mongo_client = MongoClient('mongodb://localhost:27017/') 
-        self.mongo_db = self.mongo_client['RequestBin']
+        postgres_credentials, mongodb_URI = get_db_credentials()
+        db_uri_params = get_db_uri_params()
+        mongodb_dbname = db_uri_params['mongodb-request-bin-dbname']
+
+        self.mongo_client = MongoClient(mongodb_URI)
+        self.mongo_db = self.mongo_client[mongodb_dbname]
         self.connection = psycopg2.connect(
-            dbname=os.getenv('POSTGRES_DB', 'request_bin'),
-            user=os.getenv('POSTGRES_USER', 'postgres'),
-            password=os.getenv('POSTGRES_PASSWORD', ''),
-            host=os.getenv('POSTGRES_HOST', '127.0.0.1')
+            dbname=db_uri_params['postgres-request-bin-dbname'],
+            user=postgres_credentials['username'],
+            password=postgres_credentials['password'],
+            host=db_uri_params['postgres-ip'],
+	    port=db_uri_params['postgres-port']
         )
 
     def get_paths(self):
