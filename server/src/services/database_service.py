@@ -1,4 +1,6 @@
 from flask import jsonify
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 import psycopg2
 from bson.objectid import ObjectId
@@ -7,7 +9,12 @@ class DatabaseService:
     def __init__(self):
         self.mongo_client = MongoClient('mongodb://localhost:27017/') 
         self.mongo_db = self.mongo_client['RequestBin']
-        self.connection = psycopg2.connect(dbname='request_bin')
+        self.connection = psycopg2.connect(
+            dbname=os.getenv('POSTGRES_DB', 'request_bin'),
+            user=os.getenv('POSTGRES_USER', 'postgres'),
+            password=os.getenv('POSTGRES_PASSWORD', ''),
+            host=os.getenv('POSTGRES_HOST', 'localhost')
+        )
 
     def get_paths(self):
         query = """
