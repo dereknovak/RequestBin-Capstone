@@ -6,6 +6,10 @@ api = Blueprint('api', __name__, url_prefix='/api')
 
 database = DatabaseService()
 
+@api.get("/health")
+def health_check():
+    return Response(status=200)
+
 @api.get("/bins/generate")
 def generate_bin_url():
   return get_new_url()
