@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Blueprint, request
+from flask import Flask, jsonify, Blueprint, request, Response
 from services.database_service import DatabaseService
 from services.url_generator import get_new_url, is_existing_url, is_valid_url
 
@@ -6,7 +6,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 
 database = DatabaseService()
 
-@api.get("/health")
+@api.get("/health/")
 def health_check():
     return Response(status=200)
 
