@@ -1,4 +1,4 @@
-const baseUrl = 'https://dbhqyt65dnsih.cloudfront.net';
+const baseUrl = '/api';
 
 const generateBin = async () => {
   const response = await fetch(`${baseUrl}/bins/generate`);
